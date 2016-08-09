@@ -1,0 +1,44 @@
+<project name="zm-clientuploader-admin-zimlet" default="package-zimlet">
+
+  <import file="../zm-zcs/ant-global.xml" />
+
+  <!-- archiving zimlet -->
+  <property name="zimlet.file" value="com_zimbra_clientuploader.zip" />
+  <property name="clientuploader.js.dir" location="js" />
+
+  <target name="build-init">
+    <mkdir dir="${build.zimlet.dir}" />
+  </target>
+
+  <target name="clean" description="Removes build files and undeploys extension">
+    <!--<antcall target="stop-jetty"/>-->
+    <delete dir="${build.dir}" />
+    <!--<antcall target="start-jetty"/>-->
+  </target>
+
+  <target name="package-zimlet" depends='build-init' description="put zimlet files into zip archive for deployment">
+    <mkdir dir="${build.zimlet.dir}" />
+    <zip destfile="${build.zimlet.dir}/${zimlet.file}" update="true">
+      <fileset dir="${clientuploader.js.dir}" includes="*"/>
+    </zip>
+  </target>
+
+  <target name="deploy-zimlet" depends='package-zimlet,resolve' description="install UI files, deploy zimlet to LDAP">
+    <echo>Deploying zimlet: com_zimbra_clientuploader</echo>
+    <mkdir dir="${build.zimlet.dir}" />
+    <java classname="com.zimbra.cs.zimlet.ZimletUtil" fork="true" classpathref="class.path" failonerror="true">
+      <arg line="-q" />
+      <arg line="deploy" />
+      <arg file="${build.zimlet.dir}/${zimlet.file}" />
+    </java>
+  </target>
+
+  <!-- We need to figure out how to automate jetty start/stop in a common way across repos -->
+  <!--<target name="start-jetty">-->
+    <!--<ant dir="../ZimbraServer" target="start-jetty" inheritAll="false"/>-->
+  <!--</target>-->
+  <!--<target name="stop-jetty">-->
+    <!--<ant dir="../ZimbraServer" target="stop-jetty" inheritAll="false"/>-->
+  <!--</target>-->
+
+</project>
