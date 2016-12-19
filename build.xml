@@ -33,6 +33,9 @@
     </java>
   </target>
 
+  <!-- empty jar target used in publish-local of ant-global.xml -->
+  <target name="jar"></target>
+  
   <!-- We need to figure out how to automate jetty start/stop in a common way across repos -->
   <!--<target name="start-jetty">-->
     <!--<ant dir="../ZimbraServer" target="start-jetty" inheritAll="false"/>-->
