@@ -10,7 +10,6 @@
   <dependency org="com.google.guava" name="guava" rev="23.0" />
   <dependency org="javax.mail" name="mail" rev="1.4.5" />
   <dependency org="dom4j" name="dom4j" rev="1.5.2" />
-  <dependency org="log4j" name="log4j" rev="1.2.16" />
   <dependency org="com.unboundid" name="unboundid-ldapsdk" rev="2.3.5" />
   <dependency org="zimbraclient" name="zimbraclient" rev="1.0" />
   <dependency org="zimbracommon" name="zimbracommon" rev="1.0" />
